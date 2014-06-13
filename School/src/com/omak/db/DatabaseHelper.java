@@ -1,5 +1,6 @@
 package com.omak.db;
 
+import com.omak.school.StaffModel;
 import com.omak.school.Student;
 
 import android.content.Context;
@@ -18,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		database.execSQL(Student.createStudentDb());
+		database.execSQL(StaffModel.createStaffDb());
 	}
 
 	@Override
@@ -28,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private void dropAllTables(SQLiteDatabase database) {
 		database.execSQL("DROP TABLE IF EXISTS " + Student.TABLE_STUDENT_DB);
+		database.execSQL("DROP TABLE IF EXISTS " + StaffModel.TABLE_STAFF_DB);
 	}
 
 }

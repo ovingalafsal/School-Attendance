@@ -4,6 +4,17 @@
     <item
         android:id="@+id/add"
         android:icon="@android:drawable/ic_input_add"
-        app:showAsAction="always"/>
+        app:showAsAction="always">
+        <menu>
+            <item 
+                android:id="@+id/add_student"
+                android:title="Student"
+                />
+            <item 
+                android:id="@+id/add_staff"
+                android:title="Staff"
+                />
+        </menu>
+    </item>
 
 </menu>

@@ -101,14 +101,17 @@ public class ManageStudentDetails extends ActionBarActivity {
 	@Override
 	  public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    case R.id.add:
+	    case R.id.add_student:
 	    	startActivity(new Intent(ManageStudentDetails.this, AddEditStudent.class));
+	    	break;
+	    case R.id.add_staff:
+	    	startActivity(new Intent(ManageStudentDetails.this, AddEditStaff.class));
 	    	break;
 	    default:
 	      break;
 	    }
 
 	    return true;
-	  }
+	 }
 
 }
