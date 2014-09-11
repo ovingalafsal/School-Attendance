@@ -32,17 +32,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
-        android:layout_above="@+id/finish"
+        android:layout_above="@+id/bottom"
         android:layout_marginTop="10dp"/>
-    
-    <Button 
-        android:id="@+id/finish"
+    <LinearLayout 
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+    
+    <Button 
+        android:id="@+id/finish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:onClick="onButtonClick"
         android:text="FINISH"/>
-
+    
+    <Button 
+        android:id="@+id/inform"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:onClick="onButtonClick"
+        android:text="INFORM"/>
+</LinearLayout>
 </RelativeLayout>

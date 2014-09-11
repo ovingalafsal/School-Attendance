@@ -41,7 +41,7 @@ public class Student {
 	public String classDivision;
 	public static final String CLASS_DIV = "classDivision";
 	
-	public boolean attStatus = false;
+	public boolean attStatus = true;
 	
 	
 	public static final String createStudentDb() {

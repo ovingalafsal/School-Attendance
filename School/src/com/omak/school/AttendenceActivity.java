@@ -56,7 +56,8 @@ public class AttendenceActivity extends ActionBarActivity {
 	TextView name;
 	private NetworkReceiver receiver = new NetworkReceiver();
 	public static String smsUrl = "http://fastalerts.in/api/sms.json?";
-	public static String token = "09861afa-e180-11e3-9745-26a92508be09"; 
+	public static String token = "09861afa-e180-11e3-9745-26a92508be09";
+	String className;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +83,7 @@ public class AttendenceActivity extends ActionBarActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
+				className = classList.get(position);
 				studentList = Student.getAllStudentListInClass(
 						AttendenceActivity.this, classList.get(position));
 				new Handler().post(new Runnable() {
@@ -125,6 +127,26 @@ public class AttendenceActivity extends ActionBarActivity {
 			if(checkConnectedFlags(AttendenceActivity.this)) {
 				if(absenabsenceList.size() > 0) {
 					smsView();
+				}
+			} else {
+				Toast.makeText(AttendenceActivity.this, "No Network Connection Available", Toast.LENGTH_SHORT).show();
+			}
+			break;
+			
+		case R.id.inform:
+			absenabsenceList = new ArrayList<Student>();
+			for(int i = 0; i < studentList.size(); i++) {
+				if(!studentList.get(i).attStatus) {
+					absenabsenceList.add(studentList.get(i));
+				}
+			}
+			if(checkConnectedFlags(AttendenceActivity.this)) {
+				if(absenabsenceList.size() > 0) {
+					Intent intent = new Intent(AttendenceActivity.this, InformActivity.class);
+					intent.putExtra("Count", absenabsenceList.size());
+					intent.putExtra("ClassName", className);
+					startActivity(intent);
+					finish();
 				}
 			} else {
 				Toast.makeText(AttendenceActivity.this, "No Network Connection Available", Toast.LENGTH_SHORT).show();

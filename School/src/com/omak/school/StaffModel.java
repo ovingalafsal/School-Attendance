@@ -33,7 +33,7 @@ public class StaffModel {
 	public static final String createStaffDb() {
 		StringBuilder createStatment = new StringBuilder("CREATE TABLE ").append(TABLE_STAFF_DB).append(" (").append(ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT,")
 				.append(FIRST_NAME).append(" TEXT,").append(LAST_NAME).append(" TEXT,")
-				.append(ADDRESS).append(" TEXT,").append(NUMBER).append(" TEXT,").append(")");
+				.append(ADDRESS).append(" TEXT,").append(NUMBER).append(" TEXT").append(")");
 		return createStatment.toString();
 	}
 
@@ -66,7 +66,7 @@ public class StaffModel {
 		return Long.parseLong(ContentProviderDb.getPath(resultUri));
 	}
 	
-	public static ArrayList<StaffModel> getAllStudentList(Context context) {
+	public static ArrayList<StaffModel> getAllStaffList(Context context) {
 		ArrayList<StaffModel> staffList = new ArrayList<StaffModel>();
 		Uri contentUri = Uri.withAppendedPath(ContentProviderDb.CONTENT_URI, TABLE_STAFF_DB);
 		Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);

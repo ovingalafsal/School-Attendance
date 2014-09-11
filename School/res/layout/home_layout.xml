@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:onClick="onButtonClick"
-        android:text="Manage Students" />
+        android:text="Manage Students And Managers" />
 
     <Button
         android:id="@+id/attendence"

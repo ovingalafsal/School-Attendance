@@ -108,8 +108,12 @@ public class AddEditStudent extends ActionBarActivity {
 		Spinner spDiv = (Spinner)findViewById(R.id.sp_div);
 		String[] values2 = getResources().getStringArray(R.array.divs);
 		List<String> wordList = Arrays.asList(values2);  
+		
+		String[] values1 = getResources().getStringArray(R.array.class_numbers);
+		List<String> classList = Arrays.asList(values1);
 		String classDiv[] = s.classDivision.split(":");
-		spCls.setSelection(Integer.parseInt(classDiv[0]) -1);
+		
+		spCls.setSelection(classList.indexOf(classDiv[0]));
 		spDiv.setSelection(wordList.indexOf(classDiv[1]));
 		
 		Button btn = (Button)findViewById(R.id.btn_add);

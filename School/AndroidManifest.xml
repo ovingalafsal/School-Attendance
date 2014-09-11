@@ -38,27 +38,38 @@
         
         <activity 
             android:name="com.omak.school.ManageStudentDetails"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         
         <activity 
             android:name="com.omak.school.AddEditStudent"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
+        
+        <activity 
+            android:name="com.omak.school.InformActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         
         <activity 
             android:name="com.omak.school.AddEditStaff"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         
         <activity 
             android:name="com.omak.school.AttendenceActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         
         <activity 
             android:name="com.omak.school.GeneralSms"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
         
         <activity 
             android:name="com.omak.school.MarkDetails"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>
