@@ -16,6 +16,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -82,10 +83,10 @@ public class GeneralSms extends ActionBarActivity {
 		case R.id.send:
 			EditText msg = (EditText)findViewById(R.id.send_msg);
 			if(msg.getText().length() > 0 && studentList.size() > 0) {
-				String sms = "text=" + msg.getText().toString()+"&api_token="+AttendenceActivity.token;
+				String sms = "msg=" + msg.getText().toString();
 				for(int i = 0; i < studentList.size(); i++) {
 					if(i == 0) {
-						sms = sms + "&sender_id=FALERT&msisdn=" +
+						sms = sms + "&to=" +
 							(studentList.get(i).contactNumber) ;
 					} else {
 						sms = sms + "," +
@@ -95,8 +96,10 @@ public class GeneralSms extends ActionBarActivity {
 				if(AttendenceActivity.checkConnectedFlags(GeneralSms.this)) {
 					String query = "";
 					try {
-						query = URLEncoder.encode(sms, "utf-8");
-					} catch (UnsupportedEncodingException e) {
+						final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
+						query = Uri.encode(sms, ALLOWED_URI_CHARS);
+//						query = URLEncoder.encode(sms, "utf-8");
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					new sendSms().execute(AttendenceActivity.smsUrl + query);

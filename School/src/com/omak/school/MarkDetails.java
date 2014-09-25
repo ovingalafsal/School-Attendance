@@ -20,6 +20,7 @@ import com.omak.school.GeneralSms.sendSms;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -79,16 +80,26 @@ public class MarkDetails extends ActionBarActivity {
 	}
 	
 	private void sendSms() {
-		String msg = "";
+		String msg = "Terminal mark list ";
 		for(int i = 0; i < marks.size(); i++) {
-			msg = msg + marks.get(i).subject + ":" + marks.get(i).mark + "%0A";
+			if(i == marks.size()-1) {
+				msg = msg + marks.get(i).subject + "-" + marks.get(i).mark;
+			} else {
+				msg = msg + marks.get(i).subject + "-" + marks.get(i).mark + ",";
+			}
 		}
-		String sms = "text=" + msg+"&api_token=" + AttendenceActivity.token+ 
-				"&sender_id=FALERT&msisdn=" + (s.contactNumber);
+		/*String sms = "text=" + msg+"&api_token=" + AttendenceActivity.token+ 
+				"&sender_id=FALERT&msisdn=" + (s.contactNumber);*/
+		
+		String sms = "msg=" + msg +"&to=" +
+				(s.contactNumber);
+		
 		String query = "";
 		try {
-			query = URLEncoder.encode(sms, "utf-8");
-		} catch (UnsupportedEncodingException e) {
+			final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
+			query = Uri.encode(sms, ALLOWED_URI_CHARS);
+//			query = URLEncoder.encode(sms, "utf-8");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		new sendSms().execute(AttendenceActivity.smsUrl + query);

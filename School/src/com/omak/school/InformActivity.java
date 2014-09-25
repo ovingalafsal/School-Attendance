@@ -3,7 +3,9 @@ package com.omak.school;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -15,24 +17,20 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import com.omak.school.AttendenceActivity.sendSms;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 public class InformActivity extends Activity {
 	
@@ -50,12 +48,14 @@ public class InformActivity extends Activity {
 		msg = (EditText) findViewById(R.id.sms);
 		int c = getIntent().getIntExtra("Count", 0);
 		String className = getIntent().getStringExtra("ClassName");
-		if(c == 1) {
+		/*if(c == 1) {
 			msg.setText(c+" student is absent in " + className);
 		} else {
 			msg.setText(c+" students are absent in " + className);
-		}
-		
+		}*/
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+		msg.setText("Number of students absent at HSSTUP "+ c+", HSSTHS 0" + " on "+  df.format(cal.getTime()));
 		managers = StaffModel.getAllStaffList(InformActivity.this);
 		
 		for(int i = 0; i < managers.size(); i++) {
@@ -76,16 +76,22 @@ public class InformActivity extends Activity {
 		case R.id.send:
 			int p = spClass.getSelectedItemPosition();
 			if(checkConnectedFlags(InformActivity.this)) {
-				if(msg.getText().length() > 0) {
-					String sms = "text=" + msg.getText().toString()+"&sender_id=FALERT&msisdn=" +
-							(managers.get(p).contactNumber)+"&api_token=" +token;
+				if(msg.getText().length() > 0 && managers.size() > 0) {
+					/*String sms = "text=" + msg.getText().toString()+"&sender_id=FALERT&msisdn=" +
+							(managers.get(p).contactNumber)+"&api_token=" +token;*/
+					
+					String sms = "msg=" + msg.getText().toString()+"&to=" +
+							(managers.get(p).contactNumber);
+					
 					String query = "";
 					try {
-						query = URLEncoder.encode(sms, "utf-8");
-					} catch (UnsupportedEncodingException e) {
+						final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
+						query = Uri.encode(sms, ALLOWED_URI_CHARS);
+//						query = URLEncoder.encode(sms, "utf-8");
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					new sendSms().execute(smsUrl + query);
+					new sendSms().execute(AttendenceActivity.smsUrl + query);
 				}
 				
 			} else {

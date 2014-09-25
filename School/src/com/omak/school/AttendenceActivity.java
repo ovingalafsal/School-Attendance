@@ -3,7 +3,9 @@ package com.omak.school;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -24,6 +26,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -55,7 +58,7 @@ public class AttendenceActivity extends ActionBarActivity {
 	EditText msg;
 	TextView name;
 	private NetworkReceiver receiver = new NetworkReceiver();
-	public static String smsUrl = "http://fastalerts.in/api/sms.json?";
+	public static String smsUrl = "http://msg.icelab.in/sendsms?uname=hss&pwd=hss&senderid=HSSTHS&route=T&";
 	public static String token = "09861afa-e180-11e3-9745-26a92508be09";
 	String className;
 
@@ -235,17 +238,24 @@ public class AttendenceActivity extends ActionBarActivity {
 		name = (TextView)forgotLayout.findViewById(R.id.send_name);
 		number.setText(absenabsenceList.get(0).contactNumber);
 		name.setText(absenabsenceList.get(0).firstName);
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+		msg.setText(absenabsenceList.get(0).firstName + " is absent at school on " + df.format(c.getTime()));
 		send.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				if(msg.getText().length() > 0 && number.getText().length() > 0) {
-					String sms = "text=" + msg.getText().toString()+"&sender_id=FALERT&msisdn=" +
-							(number.getText().toString())+"&api_token=" +token;
+//					String sms = "text=" + msg.getText().toString()+"&sender_id=FALERT&msisdn=" +
+//							(number.getText().toString())+"&api_token=" +token;
+					String sms = "msg=" + msg.getText().toString()+"&to=" +
+							(number.getText().toString());
 					String query = "";
 					try {
-						query = URLEncoder.encode(sms, "utf-8");
-					} catch (UnsupportedEncodingException e) {
+						final String ALLOWED_URI_CHARS = "@#&=*+-_.,:!?()/~'%";
+						query = Uri.encode(sms, ALLOWED_URI_CHARS);
+//						query = URLEncoder.encode(sms, "utf-8");
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					new sendSms().execute(smsUrl + query);
@@ -290,6 +300,7 @@ public class AttendenceActivity extends ActionBarActivity {
 		
 		@Override
 		protected String doInBackground(String... params) {
+			Log.e("test", params[0]);
 			return httpGet(params[0]);
 		}
 
