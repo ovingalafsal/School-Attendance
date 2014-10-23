@@ -34,8 +34,6 @@ import android.widget.Toast;
 
 public class InformActivity extends Activity {
 	
-	public static String smsUrl = "http://fastalerts.in/api/sms.json?";
-	public static String token = "09861afa-e180-11e3-9745-26a92508be09";
 	ArrayList<StaffModel> managers = new ArrayList<StaffModel>();
 	ArrayList<String> names = new ArrayList<String>();
 	Spinner spClass;

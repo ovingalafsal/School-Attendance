@@ -57,6 +57,7 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:onClick="onButtonClick"
+        android:visibility="gone"
         android:text="INFORM"/>
 </LinearLayout>
 </RelativeLayout>

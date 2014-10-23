@@ -3,7 +3,9 @@ package com.omak.school;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -80,7 +82,7 @@ public class MarkDetails extends ActionBarActivity {
 	}
 	
 	private void sendSms() {
-		String msg = "Terminal mark list ";
+		String msg = s.firstName + " " + s.lastName + " scored ";
 		for(int i = 0; i < marks.size(); i++) {
 			if(i == marks.size()-1) {
 				msg = msg + marks.get(i).subject + "-" + marks.get(i).mark;
@@ -88,6 +90,9 @@ public class MarkDetails extends ActionBarActivity {
 				msg = msg + marks.get(i).subject + "-" + marks.get(i).mark + ",";
 			}
 		}
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+		msg = msg +" on "+ df.format(c.getTime()) + "exam at Alpha Entrance Academy";
 		/*String sms = "text=" + msg+"&api_token=" + AttendenceActivity.token+ 
 				"&sender_id=FALERT&msisdn=" + (s.contactNumber);*/
 		

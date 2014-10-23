@@ -58,7 +58,7 @@ public class AttendenceActivity extends ActionBarActivity {
 	EditText msg;
 	TextView name;
 	private NetworkReceiver receiver = new NetworkReceiver();
-	public static String smsUrl = "http://msg.icelab.in/sendsms?uname=hss&pwd=hss&senderid=HSSTHS&route=T&";
+	public static String smsUrl = "http://msg.icelab.in/sendsms?uname=alphasms&pwd=alphasms&senderid=HSSTHS&route=T&";
 	public static String token = "09861afa-e180-11e3-9745-26a92508be09";
 	String className;
 
@@ -240,7 +240,7 @@ public class AttendenceActivity extends ActionBarActivity {
 		name.setText(absenabsenceList.get(0).firstName);
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-		msg.setText(absenabsenceList.get(0).firstName + " is absent at school on " + df.format(c.getTime()));
+		msg.setText(absenabsenceList.get(0).firstName + " is absent for the class conducted at Alpha Entrance Academy on " + df.format(c.getTime()));
 		send.setOnClickListener(new OnClickListener() {
 			
 			@Override
