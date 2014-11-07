@@ -58,7 +58,7 @@ public class AttendenceActivity extends ActionBarActivity {
 	EditText msg;
 	TextView name;
 	private NetworkReceiver receiver = new NetworkReceiver();
-	public static String smsUrl = "http://msg.icelab.in/sendsms?uname=alphasms&pwd=alphasms&senderid=HSSTHS&route=T&";
+	public static String smsUrl = "http://msg.icelab.in/sendsms?uname=alphasms&pwd=alphasms&senderid=ALPHAE&route=T&";
 	public static String token = "09861afa-e180-11e3-9745-26a92508be09";
 	String className;
 
